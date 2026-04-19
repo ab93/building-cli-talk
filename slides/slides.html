@@ -609,7 +609,7 @@ section.section-divider h2 {
 <li>Based in Sunnyvale CA</li>
 <li>Staff Data Scientist at Intuit</li>
 <li>Editor at PyOpenSci</li>
-<li>Love RPG games</li>
+<li>Love RPG!</li>
 <li>Driving is therapy!</li>
 </ul>
 </section>
@@ -1205,7 +1205,7 @@ section.section-divider h2 {
 <li>Based in Sunnyvale CA</li>
 <li>Staff Data Scientist at Intuit</li>
 <li>Editor at PyOpenSci</li>
-<li>Love RPG games</li>
+<li>Love RPG!</li>
 <li>Driving is therapy!</li>
 </ul>
 </section>
@@ -5520,11 +5520,11 @@ section.section-divider h2 {
 <h1 id="why-great-clis-matter">Why great CLIs matter</h1>
 <br />
 <ul>
-<li><strong>Fast</strong> — no browser, no GUI overhead</li>
-<li><strong>Composable</strong> — pipe output, chain tools, automate</li>
-<li><strong>Scriptable</strong> — run in CI, cron jobs, SSH sessions, servers, etc.</li>
-<li><strong>Universal</strong> — works everywhere; can be made platform agnostic</li>
-<li><strong>Agent-ready</strong> — AI agents are CLIs' newest users</li>
+<li><strong>Fast</strong></li>
+<li><strong>Composable</strong></li>
+<li><strong>Scriptable</strong></li>
+<li><strong>Universal</strong></li>
+<li><strong>Agent-ready</strong></li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-theme="default" data-style="/* --- Base typography --- */
@@ -6452,13 +6452,13 @@ section.section-divider h2 {
 <h1 id="what-we-want-from-our-cli">What we want from our CLI</h1>
 <br />
 <ol>
-<li><strong>Distributable in a venv and globally</strong> — for library <em>and</em> CLI users</li>
-<li><strong>Support Subcommands</strong> — <code>shapmonitor report summary</code>, <code>shapmonitor report drift</code></li>
-<li><strong>Type-safe inputs</strong> — bad arguments rejected with helpful errors</li>
-<li><strong>Config hierarchy</strong> — explicit flags/args → env vars → defaults</li>
-<li><strong>Progress feedback</strong> — spinners, bars, &quot;still working&quot; signals</li>
-<li><strong>Fast</strong> — instant startup, never feels heavy</li>
-<li><strong>Good defaults</strong> - gives lazy users a chance</li>
+<li><strong>Distributable in a venv and globally</strong></li>
+<li><strong>Support Subcommands</strong></li>
+<li><strong>Type-safe inputs</strong></li>
+<li><strong>Config hierarchy</strong></li>
+<li><strong>Progress feedback</strong></li>
+<li><strong>Fast</strong></li>
+<li><strong>Good defaults</strong></li>
 </ol>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-theme="default" data-style="/* --- Base typography --- */
@@ -8620,10 +8620,10 @@ section.section-divider h2 {
 <h1 id="the-pain-points">The pain points</h1>
 <br />
 <ol>
-<li><strong>Verbose argument definitions</strong> — every flag is 2+ lines</li>
-<li><strong>Manual validation</strong> — you check types, ranges, file existence yourself</li>
-<li><strong>No Config hierarchy</strong> — can't use environment variables without extra code</li>
-<li><strong>Text-only output</strong> — not super pleasing to the eye</li>
+<li><strong>Verbose argument definitions</strong></li>
+<li><strong>Manual validation</strong></li>
+<li><strong>No Config hierarchy</strong></li>
+<li><strong>Text-only output</strong></li>
 </ol>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-class="section-divider" data-theme="default" data-style="/* --- Base typography --- */
@@ -9879,7 +9879,6 @@ app.add_typer(report_app, name=<span class="hljs-string">&quot;report&quot;</spa
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">-&gt; shapmonitor report summary --top-k 5
 -&gt; shapmonitor report drift --ref last-14d..last-7d
 </code></pre>
-<p><strong>Nested subcommands with zero boilerplate.</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-theme="default" data-style="/* --- Base typography --- */
 section {
@@ -10176,9 +10175,8 @@ section.section-divider h2 {
 .qr-row &gt; div { text-align: center; }
 .qr-row img { display: block; margin: 0 auto 10px; }
 ;color:#1a1b26;background-color:#e1e2e7;background-image:none;" data-marpit-pagination-total="50" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}">
-<h1 id="sensible-typer-defaults">Sensible Typer defaults</h1>
+<h1 id="some-good-typer-defaults">Some Good Typer Defaults</h1>
 <br />
-<p>Users run <code>--help</code> constantly. It should be instant and friendly.</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># shapmonitor/cli/__init__.py</span>
 app = typer.Typer(
     name=<span class="hljs-string">&quot;shapmonitor&quot;</span>,
@@ -14863,8 +14861,10 @@ section.section-divider h2 {
         <span class="hljs-keyword">yield</span> DataTable(<span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;shap-table&quot;</span>)
         <span class="hljs-keyword">yield</span> Footer()
 </code></pre>
-<p><strong><code>compose()</code> defines the layout. CSS controls sizing.<br />
-That's your entire UI skeleton.</strong></p>
+<ul>
+<li><strong><code>compose()</code> defines the layout.</strong></li>
+<li><strong>CSS controls sizing.</strong></li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-theme="default" data-style="/* --- Base typography --- */
 section {
@@ -15175,8 +15175,7 @@ section.section-divider h2 {
     <span class="hljs-variable language_">self</span>._summary = analyzer.summary(period.start, period.end)
     <span class="hljs-variable language_">self</span>._refresh_table()
 </code></pre>
-<p><strong><code>set_interval()</code> — that's all it takes for live updates.</strong><br />
-The table rebuilds with fresh data every 5 seconds.</p>
+<p>The table rebuilds with fresh data every 5 seconds.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-background-color="#e1e2e7" data-color="#1a1b26" data-theme="default" data-style="/* --- Base typography --- */
 section {
@@ -16415,7 +16414,7 @@ __all__ = [<span class="hljs-string">&quot;SHAPMonitor&quot;</span>]
 
 <span class="hljs-comment"># 1. `import shapmonitor`</span>
 <span class="hljs-comment"># 2. `from shapmonitor import shapmonitor`</span>
-<span class="hljs-comment"># Both of them are basically take the same time.</span>
+<span class="hljs-comment"># Both of them basically take the same time.</span>
 </code></pre>
 <p>The cost: every <code>import</code> of the package pays for a lot of dependencies; even when the caller never touches the main module.</p>
 <p>For a CLI, that means even <code>shapmonitor --help</code> can become slow.</p>
@@ -18958,17 +18957,7 @@ The patterns we'll cover today serve both audiences.
 
 &quot;A good CLI is an API for humans — and increasingly, for machines.&quot;</p></div><div class="bespoke-marp-note" data-index="12" tabindex="0"><p>speaker notes:
 The domain doesn't matter for what we're learning today.
-These three commands naturally motivate all the patterns we'll cover.</p></div><div class="bespoke-marp-note" data-index="13" tabindex="0"><p>speaker notes:
-Seven criteria — the rubric for the rest of the talk. Walk through verbally:
-which library helps us hit each criterion. Don't reveal the lazy-imports
-trick yet — that's the payoff in the production patterns section.
-
-Mapping for your reference:
-- argparse: partial on (2), (3); nothing else
-- Typer: (2), (3), (4) declaratively
-- Rich: (5), (6)
-- Packaging: (1) — pyproject.toml entry point + optional extras
-- (7) Fast — library-agnostic, covered in production patterns</p></div><div class="bespoke-marp-note" data-index="41" tabindex="0"><p>speaker notes:
+These three commands naturally motivate all the patterns we'll cover.</p></div><div class="bespoke-marp-note" data-index="41" tabindex="0"><p>speaker notes:
 The mental model: imports aren't declarative (&quot;foo is now available&quot;); they're imperative (&quot;execute foo's module body&quot;). Each import is a side effect — it runs code, allocates memory, registers handlers.
 
 For libraries that depend on heavy ML stacks (shap, numba, sklearn), this compounds. shapmonitor's eager version takes 430ms just to import — before any function runs. CLIs are the worst victims of this because --help should be instant.

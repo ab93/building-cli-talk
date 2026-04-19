@@ -178,7 +178,7 @@ patterns that make any CLI tool professional-grade.
 - Based in Sunnyvale CA
 - Staff Data Scientist at Intuit
 - Editor at PyOpenSci
-- Love RPG games
+- Love RPG!
 - Driving is therapy!
 
 ---
@@ -188,7 +188,7 @@ patterns that make any CLI tool professional-grade.
 - Based in Sunnyvale CA
 - Staff Data Scientist at Intuit
 - Editor at PyOpenSci
-- Love RPG games
+- Love RPG!
 - Driving is therapy!
 
 ![bg right](mine.jpg)
@@ -223,6 +223,7 @@ need interactivity. Total: ~25 minutes + Q&A.
 - Learning **Git** as a CLI
 
 ---
+
 # My first CLI experience
 
 <br>
@@ -326,11 +327,11 @@ making that first-run experience welcoming without dumbing things down.
 
 <br>
 
-- **Fast** — no browser, no GUI overhead
-- **Composable** — pipe output, chain tools, automate
-- **Scriptable** — run in CI, cron jobs, SSH sessions, servers, etc.
-- **Universal** — works everywhere; can be made platform agnostic
-- **Agent-ready** — AI agents are CLIs' newest users
+- **Fast**
+- **Composable**
+- **Scriptable**
+- **Universal**
+- **Agent-ready**
 
 <!-- speaker notes:
 ML teams live in terminals — training, deploying, debugging.
@@ -360,11 +361,11 @@ The patterns we'll cover today serve both audiences.
 
 <br>
 
-| Command  | What it does                                      |
-| -------- | ------------------------------------------------- |
-| `log`    | Log explanation values for a batch of predictions |
-| `report` | Generate summary and drift reports (2 sub-commands)               |
-| `watch`  | Live monitoring dashboard                         |
+| Command  | What it does                                        |
+| -------- | --------------------------------------------------- |
+| `log`    | Log explanation values for a batch of predictions   |
+| `report` | Generate summary and drift reports (2 sub-commands) |
+| `watch`  | Live monitoring dashboard                           |
 
 <br>
 
@@ -383,29 +384,18 @@ These three commands naturally motivate all the patterns we'll cover.
 
 <br>
 
-1. **Distributable in a venv and globally** — for library _and_ CLI users
-2. **Support Subcommands** — `shapmonitor report summary`, `shapmonitor report drift`
-3. **Type-safe inputs** — bad arguments rejected with helpful errors
-4. **Config hierarchy** — explicit flags/args → env vars → defaults
-5. **Progress feedback** — spinners, bars, "still working" signals
-6. **Fast** — instant startup, never feels heavy
-7. **Good defaults** - gives lazy users a chance 
-
-<!-- speaker notes:
-Seven criteria — the rubric for the rest of the talk. Walk through verbally:
-which library helps us hit each criterion. Don't reveal the lazy-imports
-trick yet — that's the payoff in the production patterns section.
-
-Mapping for your reference:
-- argparse: partial on (2), (3); nothing else
-- Typer: (2), (3), (4) declaratively
-- Rich: (5), (6)
-- Packaging: (1) — pyproject.toml entry point + optional extras
-- (7) Fast — library-agnostic, covered in production patterns
--->
+1. **Distributable in a venv and globally**
+2. **Support Subcommands**
+3. **Type-safe inputs**
+4. **Config hierarchy**
+5. **Progress feedback**
+6. **Fast**
+7. **Good defaults**
 
 ---
+
 # Make it a command
+
 <br>
 
 ```toml
@@ -499,6 +489,7 @@ options:
 ```bash
 $ shapmonitor log demo/batch_current.csv --model demo/model.pkl --data-dir ./logs
 ```
+
 <br>
 
 ```bash
@@ -542,25 +533,24 @@ It works but, **we can do better**.
 
 <br>
 
-1. **Verbose argument definitions** — every flag is 2+ lines
-2. **Manual validation** — you check types, ranges, file existence yourself
-3. **No Config hierarchy** — can't use environment variables without extra code
-4. **Text-only output** — not super pleasing to the eye
+1. **Verbose argument definitions**
+2. **Manual validation**
+3. **No Config hierarchy**
+4. **Text-only output**
 
 ---
 
 <!-- _class: section-divider -->
 
 # Typer
+
 **Core Idea: The Function Signature _is_ the CLI**
 
 <br>
 
 # Rich
+
 **Enhanced Output and Formatting**
-
-
-
 
 ---
 
@@ -654,15 +644,11 @@ app.add_typer(report_app, name="report")
 -> shapmonitor report drift --ref last-14d..last-7d
 ```
 
-**Nested subcommands with zero boilerplate.**
-
 ---
 
-# Sensible Typer defaults
+# Some Good Typer Defaults
 
 <br>
-
-Users run `--help` constantly. It should be instant and friendly.
 
 ```python
 # shapmonitor/cli/__init__.py
@@ -725,7 +711,7 @@ with Progress(
 ⠋ Computing SHAP values...
 ```
 
-- **Transient spinners** for indeterminate work. 
+- **Transient spinners** for indeterminate work.
 - **Progress bars** when you know the total.
 
 ---
@@ -828,8 +814,8 @@ class WatchApp(App):
         yield Footer()
 ```
 
-**`compose()` defines the layout. CSS controls sizing.
-That's your entire UI skeleton.**
+- **`compose()` defines the layout.**
+- **CSS controls sizing.**
 
 ---
 
@@ -850,7 +836,6 @@ def _load_data(self) -> None:
     self._refresh_table()
 ```
 
-**`set_interval()` — that's all it takes for live updates.**
 The table rebuilds with fresh data every 5 seconds.
 
 ---
@@ -920,7 +905,6 @@ $ shapmonitor report summary --json | jq '.features[:1]'
 
 # Imports are EXPENSIVE for a CLI application
 
-
 ```python
 # shapmonitor/__init__.py
 import logging
@@ -932,7 +916,7 @@ __all__ = ["SHAPMonitor"]
 
 # 1. `import shapmonitor`
 # 2. `from shapmonitor import shapmonitor`
-# Both of them are basically take the same time.
+# Both of them basically take the same time.
 ```
 
 The cost: every `import` of the package pays for a lot of dependencies; even when the caller never touches the main module.
@@ -948,13 +932,14 @@ Set up the next slide: "There's a Python feature that lets the library defer thi
 -->
 
 ---
+
 # Lazy Import Strategies
+
 <br>
 
 - Use local imports, e.g. inside a function
 - Use the lazy-loader library
 - Wait for Python 3.15 (PEP 810)
-
 
 ---
 
@@ -972,11 +957,11 @@ def __getattr__(name):
         return SHAPMonitor
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 ```
+
 <br>
 
 - `import shapmonitor` → loads only the module shell
 - `from shapmonitor import SHAPMonitor` → triggers the dependency loading **only on first access**
-
 
 <!-- speaker notes:
 PEP 562 was added in Python 3.7 (2018) but most developers don't know it exists. It lets you define a module-level __getattr__ that intercepts attribute access on the module itself.
@@ -1112,16 +1097,19 @@ Each layer is independent. Adoption can be incremental.
 <br>
 
 ### Typer &nbsp; — &nbsp; CLIs from type hints
+
 Docs: [typer.tiangolo.com](https://typer.tiangolo.com) &nbsp;·&nbsp; Source: [github.com/tiangolo/typer](https://github.com/tiangolo/typer)
 
 <br>
 
 ### Rich &nbsp; — &nbsp; Beautiful terminal output
+
 Docs: [rich.readthedocs.io](https://rich.readthedocs.io) &nbsp;·&nbsp; Source: [github.com/Textualize/rich](https://github.com/Textualize/rich)
 
 <br>
 
 ### Textual &nbsp; — &nbsp; Full TUI application framework
+
 Docs: [textual.textualize.io](https://textual.textualize.io) &nbsp;·&nbsp; Source: [github.com/Textualize/textual](https://github.com/Textualize/textual)
 
 <!-- speaker notes:
