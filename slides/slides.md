@@ -1099,19 +1099,28 @@ Each layer is independent. Adoption can be incremental.
 
 ---
 
-<!-- _class: section-divider -->
-
 <!-- _class: lead -->
 
 # Thank you!
 
-**Libraries**: typer.tiangolo.com · rich.readthedocs.io · textual.textualize.io
+## Questions?
 
-**Live, shipping example**: `pip install shap-monitor[cli]` · github.com/ab93/shap-monitor
+<br>
 
-**These slides**: github.com/ab93/shap-monitor/tree/main/talks/pytexas-2026
+**Avik Basu** &nbsp;·&nbsp; github.com/ab93
+
+<br>
+
+![w:220](qr-linkedin.png) &nbsp;&nbsp;&nbsp;&nbsp; ![w:220](qr-slides.png)
+
+**LinkedIn** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Slides**
+
+<br>
+
+**Tool** &nbsp; github.com/ab93/shap-monitor &nbsp;·&nbsp; `pip install shap-monitor[cli]`
+**Libraries** &nbsp; typer.tiangolo.com &nbsp;·&nbsp; rich.readthedocs.io &nbsp;·&nbsp; textual.textualize.io
 
 <!-- speaker notes:
-Mention shap-monitor briefly as "a project where I use all three
-of these libraries together — check it out if you want a real-world example."
+Open Q&A here. If asked about shap-monitor, frame it as "a project where
+I use all three libraries together — a real-world example of today's patterns."
 -->
