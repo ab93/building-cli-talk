@@ -145,6 +145,14 @@ style: |
     grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
+  .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 72px;
+    margin-top: 12px;
+  }
+  .qr-row > div { text-align: center; }
+  .qr-row img { display: block; margin: 0 auto 10px; }
 ---
 
 <!-- _class: lead -->
@@ -1099,26 +1107,42 @@ Each layer is independent. Adoption can be incremental.
 
 ---
 
+# References
+
+<br>
+
+### Typer &nbsp; — &nbsp; CLIs from type hints
+Docs: [typer.tiangolo.com](https://typer.tiangolo.com) &nbsp;·&nbsp; Source: [github.com/tiangolo/typer](https://github.com/tiangolo/typer)
+
+<br>
+
+### Rich &nbsp; — &nbsp; Beautiful terminal output
+Docs: [rich.readthedocs.io](https://rich.readthedocs.io) &nbsp;·&nbsp; Source: [github.com/Textualize/rich](https://github.com/Textualize/rich)
+
+<br>
+
+### Textual &nbsp; — &nbsp; Full TUI application framework
+Docs: [textual.textualize.io](https://textual.textualize.io) &nbsp;·&nbsp; Source: [github.com/Textualize/textual](https://github.com/Textualize/textual)
+
+<!-- speaker notes:
+One sentence each as you walk through. Don't dwell — audience just needs the
+pointer. Mention that Rich and Textual are both by the Textualize team, so
+adopting Rich is a natural on-ramp to Textual when interactivity is needed.
+-->
+
+---
+
 <!-- _class: lead -->
 
-# Thank you!
+# Thank you! 🙏
 
 ## Questions?
 
-<br>
-
-**Avik Basu** &nbsp;·&nbsp; github.com/ab93
-
-<br>
-
-![w:220](qr-linkedin.png) &nbsp;&nbsp;&nbsp;&nbsp; ![w:220](qr-slides.png)
-
-**LinkedIn** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Slides**
-
-<br>
-
-**Tool** &nbsp; github.com/ab93/shap-monitor &nbsp;·&nbsp; `pip install shap-monitor[cli]`
-**Libraries** &nbsp; typer.tiangolo.com &nbsp;·&nbsp; rich.readthedocs.io &nbsp;·&nbsp; textual.textualize.io
+<div class="qr-row">
+<div><img src="qr-linkedin.png" width="190"><br><strong>LinkedIn</strong></div>
+<div><img src="qr-slides.png" width="190"><br><strong>Slides</strong></div>
+<div><img src="qr-tool.png" width="190"><br><strong>shap-monitor</strong></div>
+</div>
 
 <!-- speaker notes:
 Open Q&A here. If asked about shap-monitor, frame it as "a project where
