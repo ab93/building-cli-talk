@@ -163,7 +163,7 @@ style: |
 Staff Data Scientist
 Intuit
 
-PyTexas 2026
+PyCon US 2026
 
 <!-- speaker notes:
 Welcome! Today we're going to take a CLI from basic print statements
