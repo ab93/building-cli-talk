@@ -999,8 +999,8 @@ Set up the next slide: "There's a Python feature that lets the library defer thi
 <br>
 
 - Use local imports, e.g. inside a function
-- Use the lazy-loader library
-- Use TYPE_CHECKING for expensive type hints
+- Use the `lazy-loader` library
+- Use `TYPE_CHECKING` for expensive type hints
 - Wait for Python 3.15 (PEP 810)
 
 ---
