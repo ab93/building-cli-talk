@@ -224,7 +224,9 @@ style: |
 
 <!-- _class: lead -->
 
-# Building Professional CLIs in Python
+# Upgrading Python CLIs
+
+## From Scripts to Interactive Tools 
 
 **Avik Basu**
 Staff Data Scientist
