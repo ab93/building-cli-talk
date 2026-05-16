@@ -240,34 +240,26 @@ patterns that make any CLI tool professional-grade.
 
 # About Me
 
-- Based in Sunnyvale CA
+<br>
+
+- Based in Sunnyvale, CA
 - Staff Data Scientist at Intuit
 - Editor at PyOpenSci
 - Love RPG!
-- Driving is therapy!
-
----
-
-# About Me
-
-- Based in Sunnyvale CA
-- Staff Data Scientist at Intuit
-- Editor at PyOpenSci
-- Love RPG!
-- Driving is therapy!
-
-![bg right](mine.jpg)
+- Driving is therapy! 🕹️
 
 ---
 
 # Agenda
 
+<br>
+
 1. **Why CLIs?** - Motivation
 2. **Argparse** — Baseline functionality
-3. **Typer** — function signatures as CLIs
-4. **Rich** — output that communicates
-5. **Textual** — interactive TUIs
-6. **Production patterns** — how to scale things up!
+3. **Typer** — Function signatures as CLIs
+4. **Rich** — Output that communicates
+5. **Textual** — Interactive TUIs
+6. **Production patterns** — How to scale things up!
 
 <!-- speaker notes:
 Four library stages in the order you'd naturally adopt them, plus the
@@ -283,7 +275,7 @@ need interactivity. Total: ~25 minutes + Q&A.
 <br>
 
 - Year **2013**
-- Just Installed **Ubuntu**
+- Just installed **Ubuntu**
 - First **Python project**
 - Learning **Git** as a CLI
 
@@ -387,7 +379,7 @@ without compromising power for experts.**
 - **Composable**
 - **Scriptable**
 - **Universal**
-- **Agent-ready**
+- **Agent-contract**
 
 <!-- speaker notes:
 ML teams live in terminals — training, deploying, debugging.
@@ -1156,6 +1148,10 @@ The **XDG Base Directory Spec** — Linux's standard home for each:
 | data   | `$XDG_DATA_HOME`   | `~/.local/share` |
 | cache  | `$XDG_CACHE_HOME`  | `~/.cache`       |
 
+<br>
+
+<small>Spec: [specifications.freedesktop.org/basedir/latest](https://specifications.freedesktop.org/basedir/latest/)</small>
+
 <!-- speaker notes:
 Most "amateur" CLIs do one of two things wrong:
   1. cwd-relative paths (./logs, ./config.toml) — fragile, move with the shell.
@@ -1243,6 +1239,10 @@ One sentence each as you walk through. Don't dwell — audience just needs the
 pointer. Mention that Rich and Textual are both by the Textualize team, so
 adopting Rich is a natural on-ramp to Textual when interactivity is needed.
 -->
+
+---
+
+![bg](tlou2-theater.png)
 
 ---
 
