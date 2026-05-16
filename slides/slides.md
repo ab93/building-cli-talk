@@ -3,117 +3,181 @@ marp: true
 theme: default
 paginate: true
 transition: fade
-backgroundColor: #e1e2e7
-color: #1a1b26
 style: |
-  /* --- Base typography --- */
+  /* ============================================================
+     PYCON THEME — tune accent colors here.
+     These five vars drive every accent in the deck. Tweak freely;
+     contrast them against the purple/pink cityscape background.
+     ============================================================ */
+  :root {
+    --fg:        #ececf5;   /* primary body text on dark bg */
+    --fg-muted:  #b8b3d4;   /* secondary text, comments, subtitles */
+    --accent-1:  #ffd5ec;   /* h1 — near-white pink, ~6.5:1 contrast on template purple */
+    --accent-2:  #d5f3ff;   /* h2 — near-white cyan, high contrast on vivid purple */
+    --accent-3:  #ddc4ff;   /* h3, emphasis — light lavender */
+    --code-bg:   #0d0820;   /* fully opaque dark — gives muted syntax colors proper contrast */
+    --panel-bg:  #0d0820f2; /* card/table cell background — darker, near-opaque for readability */
+  }
+
+  /* --- Base typography + global cityscape background --- */
   section {
     font-family: 'Avenir Next', 'SF Pro Text', -apple-system, system-ui, sans-serif;
     font-size: 26px;
-    background-color: #e1e2e7;   /* Tokyo Night Day background */
-    color: #1a1b26;              /* near-black foreground */
-    padding: 28px 56px 40px;     /* trim top + bottom; keep side breathing room */
+    color: var(--fg);
+    padding: 28px 56px 40px;
+    background-image: url('pycon-template-3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
-  /* Kill the browser's default heading top-margin so h1 hugs the slide top */
   section > h1:first-child,
   section > h2:first-child { margin-top: 0; }
   section.lead {
     text-align: center;
     font-size: 32px;
+    background-image: url('pycon-template-1.png');   /* full cityscape for the opening title */
+  }
+  /* Reuse `.lead` centering but swap to the minimal template for the closing slide. */
+  section.lead.thank-you {
+    background-image: url('pycon-template-3.png');
   }
   section.lead h1 {
     font-size: 60px;
-    color: #2e7de9;              /* Tokyo Night Day blue */
+    color: var(--accent-1);
+    border-bottom: none;
   }
   section.lead h2 {
     font-size: 32px;
-    color: #4d5b94;
+    color: var(--fg-muted);
     font-weight: 300;
   }
   h1 {
-    color: #2e7de9;
+    color: var(--accent-1);
     font-size: 42px;
-    border-bottom: 2px solid #2e7de955;
+    border-bottom: 2px solid #ff9ec766;
     padding-bottom: 8px;
   }
-  h2 {
-    color: #007197;              /* cyan */
-    font-size: 30px;
-  }
-  h3 {
-    color: #9854f1;              /* purple */
-    font-size: 24px;
-  }
+  h2 { color: var(--accent-2); font-size: 30px; }
+  h3 { color: var(--accent-3); font-size: 24px; }
 
   /* --- Inline code --- */
   code {
     font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
-    background: #d5d6db;
-    color: #b15c00;              /* orange accent for inline */
+    background: var(--code-bg);
+    color: #ffb86c;              /* orange accent for inline */
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.92em;
   }
 
-  /* --- Code blocks: balance readability with vertical space --- */
+  /* --- Code blocks --- */
   pre {
-    background: #f4f4f5 !important;   /* lighter than slide bg */
-    border: 1px solid #c4c8da;
+    background: var(--code-bg) !important;
+    border: 1px solid #ffffff22;
     border-radius: 8px;
     padding: 10px 14px !important;
     font-size: 20px;
     line-height: 1.35;
+    backdrop-filter: blur(2px);
   }
-  /* For slides with long code blocks — opt in via <!-- _class: dense --> */
   section.dense pre { font-size: 17px; line-height: 1.3; padding: 8px 12px !important; }
   pre code {
     background: transparent;
-    color: #1a1b26;
+    color: var(--fg);
     padding: 0;
     font-size: inherit;
   }
 
-  /* --- Syntax highlighting (Tokyo Night Day palette) --- */
+  /* --- Line numbers (gutter rendered via CSS counters) --- */
+  pre > code { counter-reset: line; }
+  pre > code .line {
+    counter-increment: line;
+    display: block;
+  }
+  pre > code .line::before {
+    content: counter(line);
+    display: inline-block;
+    width: 2.5ch;
+    margin-right: 1em;
+    text-align: right;
+    color: #6b6892;            /* muted purple-gray — present but recedes */
+    border-right: 1px solid #ffffff14;
+    padding-right: 0.6em;
+    user-select: none;
+  }
+  section.dense pre > code .line::before { width: 2ch; margin-right: 0.7em; padding-right: 0.4em; }
+  /* Opt-out per slide with `<!-- _class: nolines -->` */
+  section.nolines pre > code .line::before { content: none; border-right: none; padding-right: 0; margin-right: 0; }
+
+  /* --- Syntax highlighting (3-color muted palette) ---
+     Only 3 token classes carry color: structure (keywords + decorators),
+     strings, and f-string interpolations. Everything else inherits --fg
+     so the eye lands on what matters: control flow and string holes.    */
   .hljs-keyword,
   .hljs-built_in,
-  .hljs-type { color: #9854f1; }                         /* purple: def, import, class, return */
-  .hljs-string,
-  .hljs-meta-string { color: #587539; }                  /* green: string literals */
-  .hljs-number,
-  .hljs-literal { color: #b15c00; }                      /* orange: numbers, True/False/None */
-  .hljs-comment,
-  .hljs-quote { color: #848cb5; font-style: italic; }    /* muted blue-gray: comments */
-  .hljs-function .hljs-title,
-  .hljs-title.function_,
-  .hljs-title { color: #2e7de9; }                        /* blue: function names */
-  .hljs-params { color: #8c6c3e; }                       /* yellow: parameter names */
-  .hljs-variable,
-  .hljs-attr,
-  .hljs-property { color: #f52a65; }                     /* pink: attributes, self */
+  .hljs-type,
   .hljs-meta,
-  .hljs-decorator { color: #007197; }                    /* cyan: @decorators */
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-section { color: #118c74; }
-  .hljs-deletion { color: #f52a65; background: #f5d5db; }
-  .hljs-addition { color: #587539; background: #d5edd5; }
+  .hljs-decorator { color: #c5a3ff; }                    /* purple: structure — def, import, @decorator */
+  .hljs-string,
+  .hljs-meta-string { color: #8ab48d; }                  /* muted green: strings */
+  .hljs-subst,
+  .hljs-template-variable,
+  .hljs-template-tag { color: #ffe066; }                 /* yellow: f-string {…} interpolations */
+  .hljs-comment,
+  .hljs-quote { color: #8a86a8; font-style: italic; }    /* muted purple-gray: comments */
+  /* Values — literals (True/False/None) and numbers. Single color so they read
+     as one semantic group ("constant values you might tweak"). */
+  pre > code .hljs-literal,
+  pre > code .hljs-number { color: #7dd3fc; }            /* cyan: values */
+
+  /* Function/method names — soft accent so def/call sites stand out from args. */
+  pre > code .hljs-title,
+  pre > code .hljs-title.function_,
+  pre > code .hljs-function .hljs-title { color: #ffb86c; } /* soft orange: function names */
+
+  /* Reset remaining tokens that Marp's GFM stylesheet otherwise colors
+     to GitHub defaults — they should read as body text. */
+  pre > code .hljs-params,
+  pre > code .hljs-variable,
+  pre > code .hljs-attr,
+  pre > code .hljs-property,
+  pre > code .hljs-symbol,
+  pre > code .hljs-bullet,
+  pre > code .hljs-section,
+  pre > code .hljs-operator,
+  pre > code .hljs-selector-attr,
+  pre > code .hljs-selector-class,
+  pre > code .hljs-selector-id { color: var(--fg); }
+
+  /* Diff highlighting — semantic, kept distinct */
+  .hljs-deletion { color: #ff9ec7; background: #4a1a2a; }
+  .hljs-addition { color: #8ab48d; background: #1a3a1a; }
 
   /* --- Links, emphasis, blockquote --- */
-  a { color: #007197; }
-  strong { color: #587539; }
-  em { color: #9854f1; font-style: normal; }
+  a { color: var(--accent-2); }
+  strong { color: #a5e3a1; }
+  /* In headings, bold should stay the heading color, not flip to green — otherwise the
+     green/purple complementary clash muddies the bold portion of the line. */
+  h1 strong, h2 strong, h3 strong { color: inherit; }
+  em { color: var(--accent-3); font-style: normal; }
   blockquote {
-    border-left: 4px solid #2e7de9;
+    border-left: 4px solid var(--accent-1);
     padding-left: 16px;
-    color: #4d5b94;
+    color: var(--fg-muted);
     font-style: italic;
   }
 
   /* --- Tables --- */
-  table { font-size: 22px; }
-  th { background: #d5d6db; color: #2e7de9; }
-  td { background: #f4f4f5; }
-  /* Opt-in: horizontally center a slide's table — <!-- _class: centered-table --> */
+  table { font-size: 22px; color: var(--fg); border-collapse: collapse; }
+  th {
+    background: #1a0f3df2;                /* slightly lighter than cells for header contrast */
+    color: var(--accent-1);
+    border: 1px solid #ffffff1a;
+  }
+  td {
+    background: var(--panel-bg);
+    border: 1px solid #ffffff14;
+  }
   section.centered-table table { margin-left: auto; margin-right: auto; }
 
   /* --- Section dividers --- */
@@ -122,20 +186,23 @@ style: |
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-image: url('pycon-template-2.png');   /* hero bg with sun + cityscape for chapter breaks */
   }
   section.section-divider h1 {
     font-size: 54px;
     border-bottom: none;
+    color: var(--accent-1);
   }
   section.section-divider h2 {
-    color: #4d5b94;
-    font-weight: 300;
+    color: var(--fg);                 /* full-strength light text instead of muted */
+    font-weight: 600;                 /* semi-bold — readable at projection distance */
+    letter-spacing: 0.03em;           /* subtle tracking keeps it from feeling chunky */
   }
 
   /* --- Helper classes --- */
   .pattern-box {
-    background: #f4f4f5;
-    border: 1px solid #2e7de944;
+    background: var(--panel-bg);
+    border: 1px solid #ff9ec744;
     border-radius: 8px;
     padding: 12px 16px;
     margin: 8px 0;
@@ -162,8 +229,6 @@ style: |
 **Avik Basu**
 Staff Data Scientist
 Intuit
-
-PyCon US 2026
 
 <!-- speaker notes:
 Welcome! Today we're going to take a CLI from basic print statements
@@ -1120,7 +1185,7 @@ adopting Rich is a natural on-ramp to Textual when interactivity is needed.
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead thank-you -->
 
 # Thank you! 🙏
 
