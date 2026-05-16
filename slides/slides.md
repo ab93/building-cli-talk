@@ -361,7 +361,7 @@ I figured out insert mode eventually, typed "first commit wohoooo!",
 then hit the wall again trying to actually save and exit.
 -->
 
----
+<!--
 
 ## This isn't vi's/vim's fault.
 
@@ -375,15 +375,6 @@ no path from _"what is this?"_ to _"oh, I get it."_
 **That's the gap great CLIs close: a gentle on-ramp for newcomers,
 without compromising power for experts.**
 
-<!-- speaker notes:
-Quick acknowledgement for any vi enthusiasts in the room — this isn't
-a dig. vi/vim is one of the most thoughtfully designed text editors
-ever built. The issue wasn't vi's interface; it was that I, as a total
-beginner, had no way to discover how it worked.
-
-Pivot the lesson: good CLIs onboard beginners gracefully while still
-respecting power users. The patterns we cover today are all about
-making that first-run experience welcoming without dumbing things down.
 -->
 
 ---
@@ -641,7 +632,7 @@ def log_command(
 
 **Type hints** become **CLI arguments**. Validation is **Declarative.**
 
----
+ <!--
 
 # Side by side
 
@@ -683,6 +674,7 @@ data: Annotated[
 </div>
 
 **Same thing, but Typer validates the path exists, is readable, and gives a helpful error if not.**
+-->
 
 ---
 
@@ -730,9 +722,11 @@ app = typer.Typer(
 
 ---
 
+<!--
 ![bg fit](shapmonitor-help.png)
 
 ---
+-->
 
 <!-- _class: section-divider -->
 
@@ -771,6 +765,14 @@ with Progress(
     progress.add_task("Computing SHAP values...", total=None)
     monitor.log_batch(X)
 ```
+
+<!-- speaker notes:
+A column is a Rich renderable — a small object that knows how to draw one cell of the progress line, refreshed on
+  every tick.
+
+Rich gives you a kit of columns; mix the ones
+  that match your work" is the right level
+-->
 
 ```
 ⠋ Computing SHAP values...
@@ -891,7 +893,7 @@ def on_mount(self) -> None:
     table = self.query_one(DataTable)
     table.add_columns("Feature", "Mean |SHAP|", "Std", "PSI", "Status")
 
-    self._load_data()                                  # initial load
+    self._load_data()  # initial load
     self.set_interval(self._refresh_interval, self._load_data)
 
 def _load_data(self) -> None:
@@ -903,7 +905,7 @@ def _load_data(self) -> None:
 
 The table rebuilds with fresh data every 5 seconds.
 
----
+<!--
 
 # Interactive filtering
 
@@ -929,6 +931,8 @@ def _refresh_table(self) -> None:
             continue
         table.add_row(str(feature), ...)
 ```
+
+-->
 
 ---
 
@@ -1004,6 +1008,7 @@ Set up the next slide: "There's a Python feature that lets the library defer thi
 
 - Use local imports, e.g. inside a function
 - Use the lazy-loader library
+- Use TYPE_CHECKING for expensive type hints
 - Wait for Python 3.15 (PEP 810)
 
 ---
@@ -1038,7 +1043,7 @@ The trick is the `from shapmonitor.monitor import SHAPMonitor` happens INSIDE __
 Add it to any package's __init__.py. Costs zero for callers that don't access the heavy attributes (e.g., --help). Costs the same as before for callers that do.
 -->
 
----
+<!--
 
 # Optional CLI dependencies
 
@@ -1061,6 +1066,7 @@ cli = [
 
 **`pip install shap-monitor` → just the library**
 **`pip install shap-monitor[cli]` → library + `shapmonitor` command on `$PATH`**
+-->
 
 ---
 
@@ -1068,7 +1074,7 @@ cli = [
 
 <br>
 
-Not everyone is a python developer or a python users! :)
+Not everyone is a python developer or a python user! 🙂
 <br>
 
 ```bash
@@ -1080,12 +1086,12 @@ pipx install "shap-monitor[cli]"      # CLI users installed globally
 ```
 
 ```bash
-brew install shap-monitor             # if needed
+uvx install "shap-monitor[cli]"       # CLI users installed globally
 ```
 
-<br>
-
-**`pipx` for Python CLIs. `brew` when you graduate.**
+```bash
+brew install shap-monitor             # if needed
+```
 
 <!-- speaker notes:
 Three audiences, three install commands.
@@ -1099,10 +1105,7 @@ ever installed httpie or black globally with pip and broken your
 Python env, pipx is the fix.
 
 brew — for users who don't want to know about Python. Looks like a
-native macOS or Linux tool. This is the graduation goal: when your
-tool joins the ranks of `gh`, `ripgrep`, `fzf`, `jq` — tools that
-crossed over from being language-specific to being part of every
-developer's toolkit.
+native macOS or Linux tool.
 -->
 
 ---
@@ -1135,6 +1138,61 @@ $ shapmonitor log data.csv  # uses ./shap_logs
 
 ---
 
+# Where should your CLI's files live?
+
+A proper CLI can have **three categories** of files:
+
+- **Config** — settings the user edits
+- **Data** — persistent state your tool writes
+- **Cache** — regeneratable files
+
+<br>
+
+The **XDG Base Directory Spec** — Linux's standard home for each:
+
+| Kind   | Env var            | Default          |
+| ------ | ------------------ | ---------------- |
+| config | `$XDG_CONFIG_HOME` | `~/.config`      |
+| data   | `$XDG_DATA_HOME`   | `~/.local/share` |
+| cache  | `$XDG_CACHE_HOME`  | `~/.cache`       |
+
+<!-- speaker notes:
+Most "amateur" CLIs do one of two things wrong:
+  1. cwd-relative paths (./logs, ./config.toml) — fragile, move with the shell.
+  2. Hardcoded ~/.toolname/ — clutters home, ignores OS conventions.
+The XDG spec fixes both: each kind of file has a well-known home, users can
+override via env vars, and you get predictable categorization for free.
+-->
+
+---
+
+# Cross-platform with `platformdirs`
+
+<br>
+
+```python
+from platformdirs import user_config_dir, user_data_dir, user_cache_dir
+
+config_dir = Path(user_config_dir("your_app"))
+data_dir   = Path(user_data_dir("your_app"))
+cache_dir  = Path(user_cache_dir("your_app"))
+
+# Linux:   ~/.config/yourapp, ~/.local/share/yourapp, ~/.cache/yourapp
+# macOS:   ~/Library/Preferences/yourapp, ~/Library/Application Support/yourapp, ...
+# Windows: %APPDATA%\yourapp, %LOCALAPPDATA%\yourapp, ...
+```
+
+<br>
+
+Notable CLIs using this: `black`, `poetry`, `tox`.
+
+<!-- speaker notes:
+On Linux platformdirs respects $XDG_* env vars automatically, so users still
+get the override behavior the spec promises.
+-->
+
+---
+
 <!-- _class: centered-table -->
 
 # When to reach for what
@@ -1143,6 +1201,7 @@ $ shapmonitor log data.csv  # uses ./shap_logs
 
 | You need...                 | Use...        | Complexity |
 | --------------------------- | ------------- | ---------- |
+| Plain single script         | **Argparse**  | Low        |
 | Just argument parsing       | **Typer**     | Low        |
 | Readable, structured output | + **Rich**    | Low        |
 | Progress bars, spinners     | + **Rich**    | Low        |
@@ -1151,9 +1210,11 @@ $ shapmonitor log data.csv  # uses ./shap_logs
 
 <br>
 
-**We don't have to use all three.**
+<!-- speaker notes:
 
+We don't have to use all three
 Each layer is independent. Adoption can be incremental.
+-->
 
 ---
 
